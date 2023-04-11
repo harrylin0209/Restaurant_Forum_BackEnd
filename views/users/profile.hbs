@@ -1,0 +1,89 @@
+<div class="card mb-3" style="max-width: 1600px;">
+  <div class="row g-0">
+    <!--avatar-->
+    <div class="col-md-4">
+      <img class="img-responsive center-block" src="{{ user.image }}"
+        style="width: 360px; height: 100%; margin-bottom: 25px; transition: opacity 0.5s; opacity:0;"
+        onload="this.style.opacity=1;">
+    </div>
+    <!--user information-->
+    <div class="col-md-3">
+      <div class="card-body">
+        <h5 class="card-title">{{ user.name }}</h5>
+        <p class="card-text">{{ user.email }}</p>
+        <li class="mb-1">{{#if user.Comments.length}}{{user.Comments.length}} 已評論餐廳{{else}}尚未評論餐廳{{/if}}</li>
+        <li class="mb-1">{{#if user.FavoritedRestaurants.length}}{{user.FavoritedRestaurants.length}}
+          收藏的餐廳{{else}}尚未收藏餐廳{{/if}}</li>
+        <li class="mb-1">{{#if user.Followings.length}}{{user.Followings.length}} followings (追蹤者){{else}}尚無追蹤者{{/if}}
+        </li>
+        <li class="mb-3">{{#if user.Followers.length}}{{user.Followers.length}} followers (追隨者){{else}}尚無追隨者{{/if}}
+        </li>
+        {{#ifCond user.id user.id}}
+        <a class="btn btn-primary" href="/users/{{ user.id }}/edit" role="button">Edit</a>
+        {{/ifCond}}
+      </div>
+    </div>
+  </div>
+</div>
+<div class="cotainer-fluid" style="max-width: 1600px;">
+  <div class="row g-3">
+    <div class="col-4">
+      <div class="card mb-3">
+        <div class="card-header">
+          <strong>{{user.Followings.length}}</strong> 位 followings
+        </div>
+        <div class="card-body">
+          {{#each user.Followings}}
+          <a href="/users/{{this.id}}"><img src="{{this.image}}" width="80" height="80"
+              class="m-2"></a>
+          {{/each}}
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <strong>{{user.Followers.length}}</strong> 位 follwers
+        </div>
+        <div class="card-body">
+          {{#each user.Followers}}
+            <a href="/users/{{this.id}}"><img src="{{this.image}}" width="80" height="80" class="m-2"></a>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+    <div class="col-8">
+      <div class="card mb-3">
+        <div class="card-header">
+          <span>評論過 <strong>{{ user.Comments.length }}</strong> 個餐廳</span>
+          <span>共 <strong>{{ user.Comments.length }}</strong> 則評論</span>
+        </div>
+        <div class="card-body">
+          <div class="row align-items-center me-2"></div>
+          {{#if user.Comments.length}}
+          {{#each user.Comments}}
+          <a href="/restaurants/{{this.Restaurant.id}}"><img src="{{this.Restaurant.image}}" width="80" height="80"
+              class="m-2"></a>
+          {{/each}}
+          {{else}}
+          <p class="card-text">尚無評論過的餐廳資料。</p>
+          {{/if}}
+        </div>
+      </div>
+      <div class="card mb-3">
+        <div class="card-header">
+          已收藏 <strong>{{user.FavoritedRestaurants.length}}</strong> 間餐廳
+        </div>
+        <div class="card-body">
+          <div class="row align-items-center me-2"></div>
+          {{#if user.favoritedRestaurans.length}}
+          {{#each user.FavoritedRestaurants}}
+          <a href="/restaurants/{{this.id}}"><img src="{{this.image}}" width="80" height="80"
+              class="m-2"></a>
+          {{/each}}
+          {{else}}
+          <p class="card-text">尚無收藏過的餐廳資料。</p>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
